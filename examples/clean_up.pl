@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use lib '../lib';
+use lib (qw(../lib lib));
 use WWW::PAUSE::CleanUpHomeDir;
 use Data::Dumper;
 
@@ -23,7 +23,7 @@ die "No old dists were found\n"
     unless @old_files;
 print @old_files . " old files were found:\n" . join "\n", @old_files, '';
 
-print "\nEnter dist names you want to delete or just hit ENTER to delete"
+print "\nEnter dist names you want to delete or just hit ENTER to"
         . " delete all of them\n";
 
 my @to_delete = split ' ', <STDIN>;

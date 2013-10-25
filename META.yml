@@ -1,27 +1,32 @@
 ---
-name: WWW-PAUSE-CleanUpHomeDir
-version: 0.001
+abstract: 'the module to clean up old dists from your PAUSE home directory'
 author:
   - 'Zoffix Znet <zoffix@cpan.org>'
-abstract: the module to clean up old dists from your PAUSE home directory
-license: perl
-resources:
-  license: http://dev.perl.org/licenses/
-requires:
-  Carp: 1.04
-  Class::Data::Accessor: 0.04001
-  Devel::TakeHashArgs: 0.002
-  File::Basename: 2.74
-  HTML::TokeParser::Simple: 3.15
-  URI: 1.35
-  WWW::Mechanize: 1.34
 build_requires:
   Test::More: 0
+configure_requires:
+  Module::Build: 0.4
+dynamic_config: 1
+generated_by: 'Module::Build version 0.4007, CPAN::Meta::Converter version 2.132830'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: WWW-PAUSE-CleanUpHomeDir
 provides:
   WWW::PAUSE::CleanUpHomeDir:
     file: lib/WWW/PAUSE/CleanUpHomeDir.pm
-    version: 0.001
-generated_by: Module::Build version 0.2808
-meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.2.html
-  version: 1.2
+    version: 0.002
+requires:
+  Carp: 1.26
+  Class::Data::Accessor: 0.04004
+  Devel::TakeHashArgs: 0.005
+  File::Basename: 2.82
+  HTML::TokeParser::Simple: 3.15
+  Sort::Versions: 1.5
+  URI: 1.59
+  WWW::Mechanize: 1.72
+  perl: 5.006
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.002

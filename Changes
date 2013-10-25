@@ -1,5 +1,13 @@
 Revision history for WWW-PAUSE-CleanUpHomeDir
 
-0.001   Mar 17, 2007
-        First version, released on an unsuspecting world.
+0.002   2013-10-25
+        - Fixed "Changes" file to comply with CPAN::Changes::Spec
+        - Applied version sorting patch from Steven 'SHARYANTO' Haryanto
+        - Added minimum perl version in the requirements
+        - Fixed Test::Kwalitee to be run only with RELEASE_TESTING
+        - Added a LICENSE file to comply with experimental
+          Kwalitee CPANTS game
+
+0.001   2007-03-17
+        - First version, released on an unsuspecting world.
 

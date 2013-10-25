@@ -6,12 +6,12 @@ use warnings;
 use Test::More tests => 12;
 BEGIN {
     use_ok('Carp');
-    use_ok('Carp');
     use_ok('URI');
     use_ok('WWW::Mechanize');
     use_ok('HTML::TokeParser::Simple');
     use_ok('File::Basename');
     use_ok('Devel::TakeHashArgs');
+    use_ok('Sort::Versions');
     use_ok('Class::Data::Accessor');
 	use_ok('WWW::PAUSE::CleanUpHomeDir');
 }

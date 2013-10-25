@@ -1,0 +1,54 @@
+{
+   "abstract" : "the module to clean up old dists from your PAUSE home directory",
+   "author" : [
+      "Zoffix Znet <zoffix@cpan.org>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.4007, CPAN::Meta::Converter version 2.132830",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "WWW-PAUSE-CleanUpHomeDir",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Test::More" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.4"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Carp" : "1.26",
+            "Class::Data::Accessor" : "0.04004",
+            "Devel::TakeHashArgs" : "0.005",
+            "File::Basename" : "2.82",
+            "HTML::TokeParser::Simple" : "3.15",
+            "Sort::Versions" : "1.5",
+            "URI" : "1.59",
+            "WWW::Mechanize" : "1.72",
+            "perl" : "5.006"
+         }
+      }
+   },
+   "provides" : {
+      "WWW::PAUSE::CleanUpHomeDir" : {
+         "file" : "lib/WWW/PAUSE/CleanUpHomeDir.pm",
+         "version" : "0.002"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ]
+   },
+   "version" : "0.002"
+}

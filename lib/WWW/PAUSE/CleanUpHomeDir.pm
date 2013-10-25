@@ -3,7 +3,7 @@ package WWW::PAUSE::CleanUpHomeDir;
 use warnings;
 use strict;
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 use Carp;
 use URI;
@@ -11,13 +11,14 @@ use WWW::Mechanize;
 use HTML::TokeParser::Simple;
 use File::Basename;
 use Devel::TakeHashArgs;
+use Sort::Versions;
 use base 'Class::Data::Accessor';
-__PACKAGE__->mk_classaccessors qw(
+__PACKAGE__->mk_classaccessors (qw(
     error
     last_list
     deleted_list
     _mech
-);
+));
 
 sub new {
     my $self = bless {}, shift;
@@ -97,8 +98,11 @@ sub list_old {
                         and $list_ref->{$_}{status} !~ /$scheduled_re/
                     } keys %$list_ref;
 
-    my @files = sort keys %files;
-
+    my @files = sort { 
+        my ($na, $va) = $a =~ /(.+)-(\d.+)/;
+        my ($nb, $vb) = $b =~ /(.+)-(\d.+)/;
+        $na cmp $nb || versioncmp($va, $vb); 
+    } keys %files;
     my @old;
     my $re = qr/([^.]+)-/;
     for ( 0 .. $#files-1) {
@@ -138,7 +142,7 @@ sub clean_up {
     return $self->_set_error('No files to delete')
         unless @files;
 
-    my $mech = $self->_mech; 
+    my $mech = $self->_mech;
     $mech->form_number(1); # we already loaded the page from ->list_old
 
     $mech->tick('pause99_delete_files_FILE', $_ )
@@ -469,6 +473,10 @@ can be used for cleaning up your PAUSE home directory.
 =head1 SEE ALSO
 
 L<http://pause.perl.org>
+
+=head1 BUG REPORTS AND CONTRIBUTIONS
+
+B<Steven 'SHARYANTO' Haryanto> -- submitted a patch for correct version sorting
 
 =head1 AUTHOR
 
