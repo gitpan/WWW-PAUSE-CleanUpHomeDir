@@ -1,5 +1,9 @@
 Revision history for WWW-PAUSE-CleanUpHomeDir
 
+0.003   2013-10-26
+        - Added use of HTTPS by default
+          with an option to revert back to HTTP
+
 0.002   2013-10-25
         - Fixed "Changes" file to comply with CPAN::Changes::Spec
         - Applied version sorting patch from Steven 'SHARYANTO' Haryanto

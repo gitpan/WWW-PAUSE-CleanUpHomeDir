@@ -3,7 +3,7 @@ package WWW::PAUSE::CleanUpHomeDir;
 use warnings;
 use strict;
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 use Carp;
 use URI;
@@ -18,6 +18,7 @@ __PACKAGE__->mk_classaccessors (qw(
     last_list
     deleted_list
     _mech
+    _is_use_http
 ));
 
 sub new {
@@ -34,6 +35,7 @@ sub new {
     get_args_as_hash(\@_, \ my %args, { timeout => 30 } )
         or croak $@;
 
+    $self->_is_use_http( $args{use_http} );
     $self->_mech( WWW::Mechanize->new( timeout => $args{timeout} ) );
     $self->_mech->credentials( $login, $pass );
 
@@ -46,7 +48,10 @@ sub fetch_list {
     $self->$_(undef) for qw(last_list error);
 
     my $uri =
-    URI->new('http://pause.perl.org/pause/authenquery?ACTION=delete_files');
+    URI->new(
+        ($self->_is_use_http ? 'http' : 'https')
+            . '://pause.perl.org/pause/authenquery?ACTION=delete_files'
+    );
 
     my $mech = $self->_mech;
     my $response = $mech->get($uri);
@@ -173,7 +178,10 @@ sub undelete {
         unless @files;
 
     my $uri =
-    URI->new('http://pause.perl.org/pause/authenquery?ACTION=delete_files');
+    URI->new(
+        ($self->_is_use_http ? 'http' : 'https')
+            . '://pause.perl.org/pause/authenquery?ACTION=delete_files'
+    );
 
     my $mech = $self->_mech;
     my $response = $mech->get($uri);
@@ -250,6 +258,8 @@ sub _set_error {
 1;
 __END__
 
+=encoding utf8
+
 =head1 NAME
 
 WWW::PAUSE::CleanUpHomeDir - the module to clean up old dists from your PAUSE home directory
@@ -314,17 +324,38 @@ if the right files were deleted.
     my $pause = WWW::PAUSE::CleanUpHomeDir->new(
         'PAUSE_ID',
         'PAUSE_password',
-        timeout => 10, # this one is optional
+        use_http => 1, # optional; by default uses HTTPS
+        timeout => 10, # optional; default is 30
     );
 
 Constructs and returns a fresh WWW::PAUSE::CleanUpHomeDir object. Takes
 two mandatory and one optional arguments. Optional argument is passed
 as a key/value pair. The first argument is your PAUSE author ID, the
-second argument is your PAUSE password. Optional argument is C<timeout>
-which is passed as C<< timeout => $timeout_in_seconds >> key/value pair
-and specifies the C<timeout> argument to give to L<WWW::Mechanize>
-object used for dealing with PAUSE and it will B<default to> C<30> if
-not specified.
+second argument is your PAUSE password.
+
+=head3 C<use_http>
+
+    my $pause = WWW::PAUSE::CleanUpHomeDir->new(
+        'PAUSE_ID',
+        'PAUSE_password',
+        use_http => 1, # optional; by default uses HTTPS
+    );
+
+B<Optional>. As of version 0.003, this module will use HTTPS protocol
+when dealing with PAUSE. If you want to go back to using plain HTTP,
+set C<use_http> argument to a true value. B<By default:> not specified
+(i.e. will use HTTPS).
+    
+=head3 C<timeout>
+
+    my $pause = WWW::PAUSE::CleanUpHomeDir->new(
+        'PAUSE_ID',
+        'PAUSE_password',
+        timeout => 10, # optional; default is 30
+    );
+
+B<Optional>. Specifies the C<timeout> (in seconds) for dealing with PAUSE
+and it will B<default to> C<30> if not specified.
 
 =head1 METHODS
 
@@ -476,7 +507,13 @@ L<http://pause.perl.org>
 
 =head1 BUG REPORTS AND CONTRIBUTIONS
 
-B<Steven 'SHARYANTO' Haryanto> -- submitted a patch for correct version sorting
+=over 4
+
+=item B<Steven 'SHARYANTO' Haryanto> -- submitted a patch for correct version sorting
+
+=item B<Olivier 'DOLMEN' Mengué> -- submitted bug report requesting HTTPS support
+
+=back
 
 =head1 AUTHOR
 
@@ -485,13 +522,9 @@ Zoffix Znet, C<< <zoffix at cpan.org> >>
 
 =head1 BUGS AND CAVEATS
 
-This module does B<NOT> use C<https>, beware.
-
 I have only one PAUSE account which is inadequate for proper testing.
 Double check the results to make sure the module works properly for you
 when first using it.
-If this module worked for you please drop me a line to
-C<< <zoffix at cpan.org> >> Thank you.
 
 Please report any bugs or feature requests to C<bug-www-pause-cleanuphomedir at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-PAUSE-CleanUpHomeDir>.  I will be notified, and then you'll

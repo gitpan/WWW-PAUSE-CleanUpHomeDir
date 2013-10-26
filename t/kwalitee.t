@@ -5,6 +5,6 @@
    eval { require Test::Kwalitee; Test::Kwalitee->import() };
  
    plan(
-       skip_all => $ENV{RELEASE_TESTING} ? 'Not an author releast; skipping' : 'Test::Kwalitee not installed; skipping' 
+       skip_all => $ENV{RELEASE_TESTING} ? 'Not an author release; skipping' : 'Test::Kwalitee not installed; skipping' 
        
  ) if $@ or !$ENV{RELEASE_TESTING};
