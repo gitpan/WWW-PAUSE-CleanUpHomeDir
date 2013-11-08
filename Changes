@@ -1,5 +1,9 @@
 Revision history for WWW-PAUSE-CleanUpHomeDir
 
+0.004   2013-11-08
+        - Fixed broken tests
+        - Moved release tests to xt/
+
 0.003   2013-10-26
         - Added use of HTTPS by default
           with an option to revert back to HTTP

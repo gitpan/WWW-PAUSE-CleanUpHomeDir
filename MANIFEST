@@ -5,9 +5,9 @@ README
 LICENSE
 lib/WWW/PAUSE/CleanUpHomeDir.pm
 t/00-load.t
-t/pod-coverage.t
-t/pod.t
-t/kwalitee.t
+xt/pod-coverage.t
+xt/pod.t
+xt/kwalitee.t
 examples/clean_up.pl
 Makefile.PL
 META.yml
